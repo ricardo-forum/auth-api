@@ -1,0 +1,10 @@
+{
+	"ignore": ["**/*.test.ts", "**/*.spec.ts", ".git", "node_modules"],
+	"watch": ["src"],
+	"exec": "yarn start-api",
+	"ext": "ts",
+	"env": {
+		"NODE_ENV": "dev",
+		"TS_NODE_TRANSPILE_ONLY": true
+	}
+}

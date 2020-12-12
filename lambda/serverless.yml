@@ -1,0 +1,49 @@
+service: auth-api
+app: api-node
+org: ricardoonodera
+
+custom:
+   CORS_ORIGIN:
+      staging: https://bid-admin-staging.web.app
+      production: https://bid-admin.web.app
+   REGION: ${opt:region, 'sa-east-1'}
+   STAGE: ${opt:stage, self:provider.stage}
+   SERVICE_NAME: auth-api
+   webpack:
+      webpackConfig: ./webpack.config.js
+      includeModules: true
+
+plugins:
+   - serverless-webpack
+
+provider:
+   name: aws
+   runtime: nodejs12.x
+   region: ${self:custom.REGION}
+   iamRoleStatements:
+      - Effect: Allow
+        Action:
+           - ssm:GetParameter
+           - ssm:GetParameters
+           - ssm:GetParametersByPath
+           - ssm:DescribeParameters
+        Resource: "*"
+
+functions:
+   auth-api:
+      handler: src/handler.api
+      environment:
+         CORS_ORIGIN: ${self:custom.CORS_ORIGIN.${opt:stage, self:provider.stage}}
+         STAGE: ${self:custom.STAGE}
+         SERVICE_NAME: ${self:custom.SERVICE_NAME}
+         REGION: ${self:custom.REGION}
+
+      events:
+         - http:
+              path: /
+              method: ANY
+              cors: true
+         - http:
+              path: /{any+}
+              method: ANY
+              cors: true

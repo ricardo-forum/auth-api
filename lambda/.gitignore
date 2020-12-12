@@ -1,0 +1,21 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+.vscode
+
+
+
+.build
+
+dist
+
+
+src/features/import/books/covers/books
+
+.webpack
+
+src/features/import/books/pdfs/books
