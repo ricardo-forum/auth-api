@@ -6,6 +6,11 @@ custom:
    CORS_ORIGIN:
       staging: https://bid-admin-staging.web.app
       production: https://bid-admin.web.app
+   AUTH0:
+      staging:
+         AUDIENCE: https://bid-next-ui.now.sh
+         DOMAIN: staging-next-ui.auth0.com
+         ISSUER: https://staging-next-ui.auth0.com/
    REGION: ${opt:region, 'sa-east-1'}
    STAGE: ${opt:stage, self:provider.stage}
    SERVICE_NAME: auth-api
@@ -37,6 +42,9 @@ functions:
          STAGE: ${self:custom.STAGE}
          SERVICE_NAME: ${self:custom.SERVICE_NAME}
          REGION: ${self:custom.REGION}
+         AUTH0_AUDIENCE: ${self:custom.AUTH0.${opt:stage, self:provider.stage}.AUDIENCE}
+         AUTH0_DOMAIN: ${self:custom.AUTH0.${opt:stage, self:provider.stage}.DOMAIN}
+         AUTH0_ISSUER: ${self:custom.AUTH0.${opt:stage, self:provider.stage}.ISSUER}
 
       events:
          - http:

@@ -3,21 +3,25 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"scripts": {
-		"test": "SERVICE_NAME=auth-api  STAGE=staging REGION=sa-east-1   jest  --setupFiles dotenv/config --ignore=node_modules",
+		"test": "SERVICE_NAME=auth-api  STAGE=staging REGION=sa-east-1   jest --watch --setupFiles dotenv/config --ignore=node_modules",
 		"build": "tsc",
 		"start-api": "node -r ts-node/register -r dotenv/config  ./src/dev-server.ts",
 		"start": "nodemon"
 	},
 	"dependencies": {
 		"@plataformaforum/core": "^1.0.1",
-		"@plataformaforum/node-appbuilder": "^1.0.6",
+		"@plataformaforum/node-appbuilder": "^1.1.0",
 		"cors": "2.8.5",
+		"express-jwt": "^6.0.0",
+		"jsonwebtoken": "^8.5.1",
+		"jwks-rsa": "^1.12.0",
 		"ramda": "^0.27.1",
 		"serverless-http": "2.5.0"
 	},
 	"devDependencies": {
 		"@types/express": "4.17.2",
-		"@types/jest": "24.9.0",
+		"@types/jest": "^24.9.0",
+		"@types/jsonwebtoken": "^8.5.0",
 		"@types/ramda": "^0.27.22",
 		"@types/supertest": "2.0.8",
 		"aws-sdk": "2.712.0",
